@@ -1,0 +1,57 @@
+#logoimg{
+    width: 25px;
+    height: 25px;
+}
+body{
+    font-family: 16px;
+    padding-bottom: 30px;
+}
+.maincontainer{
+   /* margin-top: 220px;  */
+   padding-top: 50px;
+}
+.myimg{
+    width: 200px;
+    height: 200px;
+}
+@font-face{
+    font-family: myfont;
+    src: url(../fonts/UKIJEs.ttf),
+         url(../fonts/UKIJEsBold.ttf),
+         url('../fonts/UKIJEs.eot') format('embedded-opentype')
+}
+.myfont{
+    font-family: myfont;
+}
+body{
+    background: #f8f9fa;
+    font-size: 14px;
+}
+@media (max-width : 585px){
+    body{
+        font-size: 12px;
+    }
+    #postTitle{
+        font-size: 14px;
+    }
+    .noPadding{
+        padding: 0;
+    }
+    .noMargin{
+        margin: 0;
+    }
+    .maincontainer{
+        padding-top: 80px;
+    }
+    .newdate{
+        /* color: red; */
+        display: none;
+    }
+   .post_title{
+       width: 100%;
+       /* border: 1px solid red; */
+       text-align: right;
+   }
+  
+   
+}

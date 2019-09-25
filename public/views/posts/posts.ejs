@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nur Blog</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style/user.css">
+     <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <% include ../assets/top.ejs %>
+    <div class="container my-4 bg-white maincontainer">
+        <h4 class="text-center text-info myfont mb-2"> يازمىلار</h4>
+        <div id="moreposts">
+            <ul class="list-group pb-4">
+                <% data.forEach(function(item){ %>
+                <li class="list-group-item  d-flex justify-content-between flex-wrap-reverse mylist">
+                    <p style="display: none;" class="olddate" id="olddate">
+                        <%= item.date %>
+                    </p>
+                    <small class="text-info newdate" id="newdate"></small>
+                    <a class="text-right post_title myfont" data-id=<%= item.id %> href="/posts/post?id=<%= item.id %>"  > <%= item.title %> </a> 
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <div>
+            
+            <a id="more" style="float: right;" href="/posts/more" class="text-primary  my-2 myfont ">تېخىمۇ كۆپ</a>
+        </div>
+
+        
+
+        
+    </div>
+
+    <h4>
+        <%= info %>
+    </h4>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!-- 用来处理时间 -->
+    <script src="./js/time.js"></script>
+    <script src="./js/loadMore.js"></script>
+    <script>
+    function onload(){
+        console.log('aa');
+    }
+    </script>
+
+</body>
+
+</html>

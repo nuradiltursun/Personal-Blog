@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nur Blog</title>
+     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style/user.css">
+    <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon" />
+</head>
+<body>
+   <% include ../assets/top.ejs  %>
+   <div class="container my-4 bg-white maincontainer" >
+   <div class=" d-flex justify-content-end m-2 p-2">
+       <a  class="mx-2 myfont" href="admin/logout">چىكىنىش</a>
+        <a  class="mx-2 myfont" href="admin/insert">يازاي</a>
+   </div>
+  
+       <ul class="list-group pb-4">
+           <% data.forEach(function(item){ %>
+            <li class="list-group-item  d-flex justify-content-between flex-wrap-reverse">
+                <div>
+                        <a class="mx-2 text-danger myfont" href="/posts/delete/<%= item.id %>"   data-id=<%= item.id %> >ئۈچۈرۈش</a>
+                        <a href="" class="mx-2 text-primary myfont">يېڭىلاش</a>
+                    
+                </div>
+                <div>
+                    <a data-id=<%= item.id %> href="/posts/post?id=<%= item.id %>" class="myfont"  > <%= item.title %> </a> 
+                    <!-- <span class=" ml-4 badge badge-primary"> <%= item.id %></span> -->
+                </div>
+            </li>
+           <% }) %>
+       </ul>
+   </div>
+   <script>
+    window.onload=function(){
+    }
+    </script>
+</body>
+</html>

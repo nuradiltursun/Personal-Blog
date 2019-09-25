@@ -1,0 +1,156 @@
+const express = require('express');
+
+const router = express.Router();
+
+const post = require('../public/db/posts');
+
+
+// all post in there and this is home page
+router.get('/', function (req, res) {
+    post.find({}, function (err, resdata) {
+        if (err) throw err;
+        // 查询成功
+        if (resdata) {
+            // 第一次只显示10个，且循序反转
+            if (resdata.length >= 10) {
+                let newdata = resdata.slice(-10);
+                let lastdata = newdata.reverse();
+                res.render('./posts/posts', {
+                    data: lastdata,
+                    info: ''
+                });
+
+            } else {
+                let lastdata = resdata.reverse();
+                res.render('./posts/posts', {
+                    data: resdata,
+                    info: ''
+                });
+            }
+
+		
+        }
+        // 查询失败
+        else {
+            res.render('./posts/posts', {
+                data: '',
+                info: 'some error in here'
+            });
+        }
+    })
+})
+
+router.post('/insert', function (req, res) {
+    let body = req.body;
+    post.find({}, function (err, resdata) {
+        if (err) throw err;
+        if (resdata) {
+            // 获取最后一个元素的id 然后加一
+            var len = resdata[resdata.length - 1].id;
+            let postItem = new post({
+                title: body.title,
+                id: len + 1,
+                content: body.content
+            });
+            postItem.save(function (err) {
+                if (err) throw err;
+                res.render('./user/insert', {
+                    info: 'insert success'
+                });
+
+            })
+
+        } else {
+            res.send('some err in here');
+        }
+    })
+})
+
+
+
+
+
+
+
+// view a post in here
+router.get('/post', function (req, res) {
+    // var logstr = JSON.stringify({url:req.path});
+    // console.log(logstr);
+    let id = req.query.id;
+    // console.log(id);
+    post.findOne({
+        id: id
+    }, function (err, resdata) {
+        if (err) throw err;
+        if (resdata) {
+            // res.send('success');
+            res.render('./posts/post', {
+                data: resdata,
+                info: ''
+            });
+        } else {
+            res.render('./posts/post', {
+                data: '',
+                info: 'error'
+            });
+
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+router.get('/delete/:id', function (req, res) {
+    // console.log('delete ok');
+    // res.send('delete ok');
+    // console.log(req.params.id);
+    post.remove({
+        id: req.params.id
+    }, function (err, result) {
+        if (err) throw err;
+        if (result) {
+            // post.find({},function(err,resdata){
+            //     if(resdata){
+            //         res.render('./user/home',{data : resdata , info : ''});
+            //     }else{
+            //         res.render('./user/home',{data : resdata,info : '查询失败'});
+            //         console.log('查询失败');
+            //     }
+            // })
+            res.redirect('/admin');
+        } else {
+            console.log('delete failed..');
+        }
+
+    })
+})
+
+
+router.get('/more',function(req,res){
+    let count=req.query.count;
+   post.find({},function(err,resdata){
+    if(err) throw err;
+    if(resdata.length >= 10*count){
+        res.json(resdata.slice(-10*count).reverse());
+    }else{
+        // res.render()
+        res.json(resdata.reverse());
+    }
+   })
+})
+
+
+
+
+
+
+
+
+module.exports = router;
